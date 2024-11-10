@@ -11,4 +11,10 @@ public class Note{
         this.priority = priority;
     }
     
+    // override the toString() method to provide a readable output
+
+    @Override
+    public  String toString(){
+        return "Note{id" + id +", content='" + content + "', priority='" + priority + "'}";
+    }
 }

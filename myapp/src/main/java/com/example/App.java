@@ -6,12 +6,44 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
+import java.util.Properties;
 public class App {
-    // database url + credentials
-    String url = "jdbc:mysql://localhost:3306/example";
-    String username = "root";
-    String password = "";
+    private String url;
+    private String username;
+    private String password;
+
+    // constructor loads the properties
+    public App(){
+        // load the properties from the application.properties file
+        loadProperties();
+        
+    }
+
+    // load properties from the properties file and use environment variables
+    private void loadProperties(){
+        Properties properties = new Properties();
+
+        // Get properties from environment variables first
+        String url = System.getenv("DB_URL");
+        String username = System.getenv("DB_USERNAME");
+        String password = System.getenv("DB_PASSWORD");
+        
+        // If environment variables are not set, fall back to the properties file
+        if (url == null || url.isEmpty()) {
+            url = properties.getProperty("DB_URL");
+        }
+        if (username == null || username.isEmpty()) {
+            username = properties.getProperty("DB_USERNAME");
+        }
+        if (password == null || password.isEmpty()) {
+            password = properties.getProperty("DB_PASSWORD");
+        }
+        
+        // Now set the values for database connection
+        this.url = url;
+        this.username = username;
+        this.password = password;
+    }
 
     public Note addNote(String content, String priority) throws SQLException {
         // open connection to db and close when done

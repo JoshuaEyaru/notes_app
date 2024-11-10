@@ -5,7 +5,7 @@ public class Main {
         App mydb = new App();
 
         try {
-            Note addNote = mydb.addNote("go and vote for Trump", "very high");
+            Note addNote = mydb.addNote("Celebrate our win", "TOO HIGH");
             
             // check if the note was added
             if (addNote != null){
